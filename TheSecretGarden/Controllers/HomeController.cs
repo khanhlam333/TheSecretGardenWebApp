@@ -1,21 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TheSecretGarden.Models;
+using TheSecretGarden.Services;
 
 namespace TheSecretGarden.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IBookService _service;
+        public HomeController(IBookService service)
         {
-            _logger = logger;
+            _service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var data = await _service.GetBooks();
+            return View(data);
         }
 
         public IActionResult Privacy()

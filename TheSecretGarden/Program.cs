@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TheSecretGarden.Models;
+using TheSecretGarden.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<BookStoreDbContext>(con => con.UseSqlServer(builder.Configuration.GetConnectionString("connectionstr")));
+
+builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();
 
