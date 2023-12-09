@@ -1,0 +1,21 @@
+﻿@using TheSecretGarden.Models
+@model Book
+
+@{
+    ViewData["Title"] = "Details of the book";
+}
+
+<img src="~/photos/details-banner.png" class="banner-image" alt="detail banner image"/>
+<div class="details-container">
+    <img src="@Url.Content(@Model.ImgLink)" alt="book image" class="details-book-img" />
+    <div class="description-container">
+        <h2>@Model.Title</h2>
+        <p>@Model.Author</p>
+        <p>@Model.Description</p>
+        <div class="price-quantity-container">
+            <p>$@Model.Price</p>
+
+        </div>
+        <button class="add-to-basket-btn">ADD TO BASKET</button>
+    </div>
+</div>
