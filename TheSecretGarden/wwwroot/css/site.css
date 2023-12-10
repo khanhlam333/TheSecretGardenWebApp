@@ -155,3 +155,41 @@ a {
     background-color: gray;
     border: solid gray;
 }
+
+/*admin*/
+.admin-info {
+    padding: 1rem;
+    border-bottom: solid 2px gray;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+.admin-logo {
+    width: 15%;
+    object-fit: cover;
+}
+
+.admin-container {
+    display: flex;
+}
+.admin-left-column {
+    width: 15%;
+    background-color: black;
+    height: 100vh;
+}
+.admin-page-info {
+    width: 85%;
+    margin: 1.5rem;
+}
+
+.admin-links {
+    color: white;
+    display: block;
+    padding: 1rem;
+    margin: 1rem;
+}
+.admin-links:hover {
+    background-color: gray;
+    color: white;
+}
