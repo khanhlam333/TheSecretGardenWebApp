@@ -11,12 +11,13 @@ namespace TheSecretGarden.Services
         {
             _context = context;
         }
-        public Task AddAsync(Book book)
+        public async Task AddAsync(Book book)
         {
-            throw new NotImplementedException();
+            await _context.Books.AddAsync(book);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -39,7 +40,7 @@ namespace TheSecretGarden.Services
             return result;
         }
 
-        public Task UpdateAsync(int id, Book book)
+        public async Task UpdateAsync(int id, Book book)
         {
             throw new NotImplementedException();
         }

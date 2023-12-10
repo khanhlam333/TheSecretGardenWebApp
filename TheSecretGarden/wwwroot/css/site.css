@@ -176,7 +176,7 @@ a {
 .admin-left-column {
     width: 15%;
     background-color: black;
-    height: 100vh;
+    min-height: 100%;
 }
 .admin-page-info {
     width: 85%;
@@ -192,4 +192,16 @@ a {
 .admin-links:hover {
     background-color: gray;
     color: white;
+}
+
+/*Admin Books Management*/
+.admin-books-img {
+    width: 30%;
+    object-fit: cover;
+    aspect-ratio: 2/3;
+    margin: 0.7rem auto;
+}
+
+.admin-create-form div {
+    margin: 1.5rem 0;
 }
