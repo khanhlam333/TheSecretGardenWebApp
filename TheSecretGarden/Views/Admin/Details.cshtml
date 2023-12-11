@@ -15,7 +15,7 @@
         <p>$@Model.Price</p>
         <div style="display: flex; justify-content: space-between;">
             <a asp-action="BooksManage" asp-controller="Admin" class="btn btn-outline-secondary">Show All</a>
-            <a asp-action="Edit" asp-controller="Admin" class="btn btn-outline-success">Edit</a>
+            <a asp-action="Edit" asp-controller="Admin" class="btn btn-outline-success" asp-route-id="@Model.Id">Edit</a>
         </div>
     </div>
 </div>

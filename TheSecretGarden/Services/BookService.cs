@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TheSecretGarden.Enum;
 using TheSecretGarden.Models;
 
@@ -40,9 +41,11 @@ namespace TheSecretGarden.Services
             return result;
         }
 
-        public async Task UpdateAsync(int id, Book book)
+        public async Task<Book> UpdateAsync(int id, Book book)
         {
-            throw new NotImplementedException();
+            _context.Update(book);
+            await _context.SaveChangesAsync();
+            return book;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace TheSecretGarden.Services
         Task<IEnumerable<Book>> GetByCategoryAsync(BookCategory BookCategory);
         Task<Book> GetByIdAsync(int id);
         Task AddAsync(Book book);
-        Task UpdateAsync(int id, Book book);
+        Task <Book> UpdateAsync(int id, Book book);
         Task DeleteAsync(int id);
     }
 }
