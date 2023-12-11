@@ -72,6 +72,14 @@ namespace TheSecretGarden.Controllers
             return View();
         }
 
+        //Get: Books/Details/1
+        public async Task<IActionResult> Details (int id)
+        {
+            var bookDetails = await _service.GetByIdAsync(id);
+            if (bookDetails == null) return View("NotFound");
+            return View(bookDetails);
+        }
+
         public IActionResult OrdersManage()
         {
             return View();

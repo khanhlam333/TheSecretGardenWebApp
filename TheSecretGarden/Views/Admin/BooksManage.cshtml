@@ -32,6 +32,8 @@
                         <td class="text-center align-middle">@Html.DisplayFor(modelItem => item.BookCategory)</td>
                         <td class="text-center align-middle">
                             <div style="display: flex;">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
+                                <p style="margin: 0 0.7rem;"> | </p>
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
                                 <p style="margin: 0 0.7rem;"> | </p>
                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-white">Delete</a>

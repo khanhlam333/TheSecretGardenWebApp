@@ -196,7 +196,7 @@ a {
 
 /*Admin Books Management*/
 .admin-books-img {
-    width: 30%;
+    width: 50%;
     object-fit: cover;
     aspect-ratio: 2/3;
     margin: 0.7rem auto;
