@@ -93,7 +93,7 @@ namespace TheSecretGarden.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return RedirectToAction("OrdersManage");
+                return View();
             }
             if (file != null)
             {
@@ -140,6 +140,34 @@ namespace TheSecretGarden.Controllers
             }
             
             await _service.UpdateAsync(id, book);
+            return RedirectToAction("BooksManage");
+        }
+
+        //Get: Books/Delete/1
+        public async Task<IActionResult> Delete(int id)
+        {
+            var bookDetails = await _service.GetByIdAsync(id);
+            if (bookDetails == null) return View("NotFound");
+            return View(bookDetails);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var bookDetails = await _service.GetByIdAsync(id);
+            if (bookDetails == null) return View("NotFound");
+
+            string oldImgLink = bookDetails.ImgLink;
+            string oldImgLinkRepl = oldImgLink.Replace("~", "wwwroot");
+
+            if (System.IO.File.Exists(oldImgLinkRepl))
+            {
+                System.IO.File.Delete(oldImgLinkRepl);
+            }
+
+            TempData["message"] = bookDetails.Title + " has been successfully deleted";
+            TempData["style"] = "block";
+            await _service.DeleteAsync(id);
             return RedirectToAction("BooksManage");
         }
 

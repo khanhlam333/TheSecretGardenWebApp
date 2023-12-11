@@ -4,7 +4,16 @@
 @{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Books Management - The Secret Garden";
+    var message = TempData["message"] as string;
+    var style = TempData["style"] as string;
 }
+
+<div id="announcement" style="display: @style;">
+    <div style="display: flex; justify-content: space-between; padding: 0.7rem;">
+        <span>@message</span>
+        <span id="close-the-announcement">X</span>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-8 offset-md-2">
@@ -46,3 +55,12 @@
     </div>
 </div>
 <a asp-action="Create" asp-controller="Admin" class="btn btn-success" style="position: sticky; bottom: 1rem; right: 1rem;">Add New</a>
+
+@section Scripts {
+    <script>
+        var announcement = document.getElementById("announcement")
+        $("#close-the-announcement").on("click", function () {
+            announcement.style.display = "none";
+        })
+    </script>
+}

@@ -20,7 +20,9 @@ namespace TheSecretGarden.Services
 
         public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.Books.FirstOrDefaultAsync(n => n.Id == id);
+            _context.Books.Remove(result);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Book>> GetBooks()

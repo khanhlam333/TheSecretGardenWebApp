@@ -205,3 +205,20 @@ a {
 .admin-create-form div {
     margin: 1.5rem 0;
 }
+
+#announcement {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    display: none;
+    margin: 0 auto 3rem auto;
+    width: 30%;
+}
+
+#close-the-announcement {
+    cursor: pointer;
+}
+
+#close-the-announcement:hover {
+    color: black;
+}
