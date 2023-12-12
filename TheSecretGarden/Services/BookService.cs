@@ -27,7 +27,7 @@ namespace TheSecretGarden.Services
 
         public async Task<IEnumerable<Book>> GetBooks()
         {
-            var result = await _context.Books.ToListAsync();
+            var result = await _context.Books.OrderByDescending(p => p.Id).ToListAsync();
             return result;
         }
 
@@ -39,7 +39,7 @@ namespace TheSecretGarden.Services
 
         public async Task<IEnumerable<Book>> GetByCategoryAsync(BookCategory BookCategory)
         {
-            var result = await _context.Books.Where(x => x.BookCategory == BookCategory).ToListAsync();
+            var result = await _context.Books.Where(x => x.BookCategory == BookCategory).OrderByDescending(p => p.Id).ToListAsync();
             return result;
         }
 

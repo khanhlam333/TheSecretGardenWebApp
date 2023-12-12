@@ -160,14 +160,23 @@ namespace TheSecretGarden.Controllers
             string oldImgLink = bookDetails.ImgLink;
             string oldImgLinkRepl = oldImgLink.Replace("~", "wwwroot");
 
-            if (System.IO.File.Exists(oldImgLinkRepl))
-            {
-                System.IO.File.Delete(oldImgLinkRepl);
-            }
-
             TempData["message"] = bookDetails.Title + " has been successfully deleted";
             TempData["style"] = "block";
+
             await _service.DeleteAsync(id);
+
+            if (System.IO.File.Exists(oldImgLinkRepl))
+            {
+                try
+                {
+                    System.IO.File.Delete(oldImgLinkRepl);
+                }
+                catch
+                {
+                    return RedirectToAction("BooksManage");
+                }
+            }
+
             return RedirectToAction("BooksManage");
         }
 
