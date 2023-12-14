@@ -27,6 +27,14 @@ builder.Services.AddScoped<IBookService, BookService>();
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
+});
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -45,6 +53,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 
 app.UseRouting();
 

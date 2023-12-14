@@ -10,9 +10,11 @@ namespace TheSecretGarden.Controllers
     public class SignupController : Controller
     {
         private readonly ICustomerService _service;
-        public SignupController(ICustomerService service)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public SignupController(ICustomerService service, IHttpContextAccessor contextAccessor)
         {
             _service = service;
+            _contextAccessor = contextAccessor;
         }
 
         public IActionResult Index()
@@ -38,13 +40,13 @@ namespace TheSecretGarden.Controllers
 
             await _service.AddAsync(customer);
 
-            TempData["id"] = customer.Id;
-            TempData["name"] = customer.Name;
-            TempData["username"] = customer.Username;
-            TempData["email"] = customer.Email;
-            TempData["password"] = customer.Password;
-            TempData["dateregistered"] = customer.DateRegistered.ToString();
-            TempData["state"] = customer.ActiveState;
+            _contextAccessor.HttpContext.Session.SetInt32("Id", customer.Id);
+            _contextAccessor.HttpContext.Session.SetString("Name", customer.Name);
+            _contextAccessor.HttpContext.Session.SetString("Username", customer.Username);
+            _contextAccessor.HttpContext.Session.SetString("Email", customer.Email);
+            _contextAccessor.HttpContext.Session.SetString("Password", customer.Password);
+            _contextAccessor.HttpContext.Session.SetString("DateRegistered", customer.DateRegistered.ToString());
+            _contextAccessor.HttpContext.Session.SetString("ActiveState", customer.ActiveState);
 
             return RedirectToAction("Index", "Home");
         }
@@ -88,15 +90,18 @@ namespace TheSecretGarden.Controllers
 
         public async Task<IActionResult> LogoutAccount([Bind("Id, Name, Username, Email, Password, DateRegistered, ActiveState")] Customer customer)
         {
-            customer.Id = Convert.ToInt32(customer.Id);
-            customer.DateRegistered = Convert.ToDateTime(customer.DateRegistered);
-
             if (!ModelState.IsValid)
             {
-                var error = ModelState.Values.SelectMany(v => v.Errors);
-                return Json(error);
-                //return RedirectToAction("Index", "Login");//change later
+                return RedirectToAction("LogoutQuery", "Home");
             }
+
+            customer.Id = (int)_contextAccessor.HttpContext.Session.GetInt32("Id");
+            customer.Name = _contextAccessor.HttpContext.Session.GetString("Name");
+            customer.Username = _contextAccessor.HttpContext.Session.GetString("Username");
+            customer.Email = _contextAccessor.HttpContext.Session.GetString("Email");
+            customer.Password = _contextAccessor.HttpContext.Session.GetString("Password");
+            customer.DateRegistered = Convert.ToDateTime(_contextAccessor.HttpContext.Session.GetString("DateRegistered"));
+            _contextAccessor.HttpContext.Session.SetString("ActiveState", customer.ActiveState);
 
             await _service.UpdateAsync(customer);
             return RedirectToAction("Index", "Home");

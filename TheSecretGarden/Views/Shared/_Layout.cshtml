@@ -1,4 +1,6 @@
-﻿@{
+﻿@inject IHttpContextAccessor _contextAccessor;
+
+@{
     var username = TempData["username"] as string;
     var state = TempData["state"] as string;
 }
@@ -46,9 +48,9 @@
                             <li>@User.Identity.Name</li>
                             <a asp-action="Logout" asp-controller="Login">Logout</a>
                         } 
-                        else if (state == "active")
+                        else if (_contextAccessor.HttpContext.Session.GetString("ActiveState") == "active")
                         {
-                            <li>@username</li>
+                            <li>@_contextAccessor.HttpContext.Session.GetString("Username")</li>
                             <a asp-action="LogoutQuery" asp-controller="Home">Logout</a>
                         }
                         else

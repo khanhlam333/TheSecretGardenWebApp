@@ -1,5 +1,5 @@
 ﻿@model Customer
-
+@inject IHttpContextAccessor _contextAccessor;
 @{
     var id = TempData["id"] as string;
     var name = TempData["name"] as string;
@@ -14,24 +14,6 @@
 
 <form asp-action="LogoutAccount" asp-controller="Signup" class="admin-create-form">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <input asp-for="Id" class="form-control" value="@id" type="hidden" />
-    </div>
-    <div class="form-group">
-        <input asp-for="Name" class="form-control" value="@name" type="hidden" />
-    </div>
-    <div class="form-group">
-        <input asp-for="Username" class="form-control" value="@username" type="hidden" />
-    </div>
-    <div class="form-group">
-        <input asp-for="Email" class="form-control" value="@email" type="hidden" />
-    </div>
-    <div class="form-group">
-        <input asp-for="Password" class="form-control" value="@password" type="hidden" />
-    </div>
-    <div class="form-group">
-        <input asp-for="DateRegistered" class="form-control" value="@dateregistered" type="hidden" />
-    </div>
     <div class="form-group">
         <input asp-for="ActiveState" class="form-control" value="inactive" type="hidden" />
     </div>
