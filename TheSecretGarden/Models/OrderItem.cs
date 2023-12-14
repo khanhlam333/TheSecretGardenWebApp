@@ -11,9 +11,9 @@ namespace TheSecretGarden.Models
         public double TotalPrice { get; set; }
         public int BookId { get; set; }
         [ForeignKey("BookId")]
-        public Book Book { get; set; }
+        public virtual Book Book { get; set; }
         public int OrderId { get; set; }
         [ForeignKey("OrderId")]
-        public Order Order { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

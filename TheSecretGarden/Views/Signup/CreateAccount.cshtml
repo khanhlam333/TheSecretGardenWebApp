@@ -1,0 +1,69 @@
+﻿@model Customer
+
+@{
+    ViewData["Title"] = "Signup - The Secret Garden";
+}
+
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Create an Account</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="CreateAccount" class="admin-create-form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Username" class="control-label"></label>
+                        <input asp-for="Username" class="form-control" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" type="password" id="myInput" />
+                        <input type="checkbox" onclick="myFunction()" > Show Password
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="ActiveState" class="form-control" value="active" type="hidden" />
+                    </div>
+
+                    <div class="form-group" style="display: flex; justify-content: space-between;">
+                        <a asp-action="SignupGoogle" asp-controller="Signup" class="google-link">Continue with Google</a>
+                        <input type="submit" value="Sign Up" class="btn btn-outline-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myInput");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+}

@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var username = TempData["username"] as string;
+    var state = TempData["state"] as string;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -31,6 +36,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="LimitedEdition">LIMITED EDITION</a>
                         </li>
+                    </ul>
+                </div>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (Context.User.Identity.IsAuthenticated)
+                        {
+                            <li>@User.Identity.Name</li>
+                            <a asp-action="Logout" asp-controller="Login">Logout</a>
+                        } 
+                        else if (state == "active")
+                        {
+                            <li>@username</li>
+                            <a asp-action="LogoutQuery" asp-controller="Home">Logout</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Index" asp-controller="Login" class="user-info-link login">Login</a>
+                            <a asp-action="CreateAccount" asp-controller="Signup" class="user-info-link signup">Sign Up</a>
+                        }
                     </ul>
                 </div>
             </div>

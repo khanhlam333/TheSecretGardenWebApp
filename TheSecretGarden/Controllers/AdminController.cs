@@ -179,15 +179,5 @@ namespace TheSecretGarden.Controllers
 
             return RedirectToAction("BooksManage");
         }
-
-        public IActionResult OrdersManage()
-        {
-            return View();
-        }
-
-        public IActionResult CustomersManage()
-        {
-            return View();
-        }
     }
 }
