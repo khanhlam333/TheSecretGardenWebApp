@@ -29,7 +29,7 @@ namespace TheSecretGarden.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAccount([Bind("Name, Username, Email, Password, DateRegistered, ActiveState")] Customer customer)
+        public async Task<IActionResult> CreateAccount([Bind("Name, Username, Email, Password, DateRegistered")] Customer customer)
         {
             if (!ModelState.IsValid)
             {
@@ -46,7 +46,7 @@ namespace TheSecretGarden.Controllers
             _contextAccessor.HttpContext.Session.SetString("Email", customer.Email);
             _contextAccessor.HttpContext.Session.SetString("Password", customer.Password);
             _contextAccessor.HttpContext.Session.SetString("DateRegistered", customer.DateRegistered.ToString());
-            _contextAccessor.HttpContext.Session.SetString("ActiveState", customer.ActiveState);
+            _contextAccessor.HttpContext.Session.SetString("ActiveState", "active");
 
             return RedirectToAction("Index", "Home");
         }
@@ -88,22 +88,10 @@ namespace TheSecretGarden.Controllers
             return View(customerDetails);
         }
 
-        public async Task<IActionResult> LogoutAccount([Bind("Id, Name, Username, Email, Password, DateRegistered, ActiveState")] Customer customer)
+        public IActionResult LogoutAccount(Customer customer)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("LogoutQuery", "Home");
-            }
+            _contextAccessor.HttpContext.Session.SetString("ActiveState", "inactive");
 
-            customer.Id = (int)_contextAccessor.HttpContext.Session.GetInt32("Id");
-            customer.Name = _contextAccessor.HttpContext.Session.GetString("Name");
-            customer.Username = _contextAccessor.HttpContext.Session.GetString("Username");
-            customer.Email = _contextAccessor.HttpContext.Session.GetString("Email");
-            customer.Password = _contextAccessor.HttpContext.Session.GetString("Password");
-            customer.DateRegistered = Convert.ToDateTime(_contextAccessor.HttpContext.Session.GetString("DateRegistered"));
-            _contextAccessor.HttpContext.Session.SetString("ActiveState", customer.ActiveState);
-
-            await _service.UpdateAsync(customer);
             return RedirectToAction("Index", "Home");
         }
     }

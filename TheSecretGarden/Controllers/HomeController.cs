@@ -19,11 +19,6 @@ namespace TheSecretGarden.Controllers
             return View(data);
         }
 
-        public IActionResult LogoutQuery()
-        {
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();

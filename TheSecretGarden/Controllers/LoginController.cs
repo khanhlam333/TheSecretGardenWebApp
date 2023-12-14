@@ -2,14 +2,47 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using TheSecretGarden.Models;
+using TheSecretGarden.Services;
+using Microsoft.AspNetCore.Components.Web;
+
 
 namespace TheSecretGarden.Controllers
 {
     public class LoginController : Controller
     {
-        public IActionResult Index()
+        private readonly ICustomerService _service;
+        private readonly IHttpContextAccessor _contextAccessor;
+        public LoginController(ICustomerService service, IHttpContextAccessor contextAccessor)
+        {
+            _service = service;
+            _contextAccessor = contextAccessor;
+        }
+
+        //Get: Login/LoginAccount
+        public IActionResult LoginAccount()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LoginAccount(Customer customer)
+        {
+            var data = await _service.GetByUsernameAndPasswordAsync(customer);
+            if(data.Username == "AdminTheSecretGarden" && data.Password == "Admin123@TheSecretGarden")
+            {
+                _contextAccessor.HttpContext.Session.SetString("Role", "Admin");
+            }
+
+            _contextAccessor.HttpContext.Session.SetInt32("Id", data.Id);
+            _contextAccessor.HttpContext.Session.SetString("Name", data.Name);
+            _contextAccessor.HttpContext.Session.SetString("Username", data.Username);
+            _contextAccessor.HttpContext.Session.SetString("Email", data.Email);
+            _contextAccessor.HttpContext.Session.SetString("Password", data.Password);
+            _contextAccessor.HttpContext.Session.SetString("DateRegistered", data.DateRegistered.ToString());
+            _contextAccessor.HttpContext.Session.SetString("ActiveState", "active");
+
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task Login()
@@ -30,19 +63,14 @@ namespace TheSecretGarden.Controllers
                 claim.Type,
                 claim.Value
             });
-            return Json(claims); // do something with this info, out it into a database
-            //return RedirectToAction("Testing", "Login", new {area = ""});
+            var array = Json(claims);
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Login");
-        }
-
-        public IActionResult Testing()
-        {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

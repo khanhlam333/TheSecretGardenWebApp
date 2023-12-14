@@ -1,4 +1,5 @@
-﻿using TheSecretGarden.Models;
+﻿using TheSecretGarden.Enum;
+using TheSecretGarden.Models;
 
 namespace TheSecretGarden.Services
 {
@@ -6,6 +7,7 @@ namespace TheSecretGarden.Services
     {
         Task<IEnumerable<Customer>> GetCustomers();
         Task<Customer> GetByIdAsync(int id);
+        Task<Customer> GetByUsernameAndPasswordAsync(Customer customer);
         Task AddAsync(Customer customer);
         Task<Customer> UpdateAsync(Customer customer);
     }
