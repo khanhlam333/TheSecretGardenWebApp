@@ -213,6 +213,29 @@ a {
     justify-content: space-between;
     color: white;
 }
+
+.not-allowed-page-info {
+    text-align: center;
+    margin-top: 25vh;
+}
+
+.admin-registration-container {
+    display: flex;
+    align-items: center;
+    width: 60%;
+}
+.admin-btn-container { /*Don't touch*/
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+.not-allowed {
+    width: 40%;
+}
+.allowed {
+    width: 45%;
+}
+
 .admin-logo {
     width: 15%;
     object-fit: cover;

@@ -1,6 +1,40 @@
-﻿@{
+﻿@inject IHttpContextAccessor _contextAccessor;
+
+@if (_contextAccessor.HttpContext.Session.GetString("Role") == "Admin")
+{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Dashboard - The Secret Garden";
 }
+else if (_contextAccessor.HttpContext.Session.GetString("ActiveState") == "inactive" || !Context.User.Identity.IsAuthenticated)
+{
+    Layout = "_NotAllowed";
+    ViewData["Title"] = "Admin Page - The Secret Garden";
 
-<div>Dashboard</div>
+    <h1>Admin Page. Guests Not Allowed!</h1>
+    <p>This is the admin page and guests are not allowed to visit without authorization.</p>
+    <p>If you are an admin then please login</p>
+    <div class="admin-btn-container not-allowed">
+        <a asp-action="Index" asp-controller="Home" class="user-info-link login">Home Page</a>
+        <a asp-action="LoginAccount" asp-controller="Login" class="user-info-link login">Login</a>
+    </div>
+}
+else if (_contextAccessor.HttpContext.Session.GetString("ActiveState") == "active" && _contextAccessor.HttpContext.Session.GetString("Role") != "Admin" || Context.User.Identity.IsAuthenticated)
+{
+    Layout = "_NotAllowed";
+    ViewData["Title"] = "Admin Page - The Secret Garden";
+    
+    <h1>Admin Page. Guests Not Allowed!</h1>
+    <p>This is the admin page and guests are not allowed to visit without authorization.</p>
+    <p>If you are an admin then please login</p>
+    <div class="admin-btn-container not-allowed">
+        <a asp-action="Index" asp-controller="Home" class="user-info-link login">Home Page</a>
+        @if (Context.User.Identity.IsAuthenticated)
+        {
+            <a asp-action="Logout" asp-controller="Login" class="user-info-link login">Logout</a>
+        }
+        else
+        {
+            <a asp-action="LogoutAccount" asp-controller="Signup" class="user-info-link login">Logout</a>
+        }
+    </div>
+}

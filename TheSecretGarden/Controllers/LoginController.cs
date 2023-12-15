@@ -32,6 +32,16 @@ namespace TheSecretGarden.Controllers
             if(data.Username == "AdminTheSecretGarden" && data.Password == "Admin123@TheSecretGarden")
             {
                 _contextAccessor.HttpContext.Session.SetString("Role", "Admin");
+
+                _contextAccessor.HttpContext.Session.SetInt32("Id", data.Id);
+                _contextAccessor.HttpContext.Session.SetString("Name", data.Name);
+                _contextAccessor.HttpContext.Session.SetString("Username", data.Username);
+                _contextAccessor.HttpContext.Session.SetString("Email", data.Email);
+                _contextAccessor.HttpContext.Session.SetString("Password", data.Password);
+                _contextAccessor.HttpContext.Session.SetString("DateRegistered", data.DateRegistered.ToString());
+                _contextAccessor.HttpContext.Session.SetString("ActiveState", "active");
+
+                return RedirectToAction("Index", "Admin");
             }
 
             _contextAccessor.HttpContext.Session.SetInt32("Id", data.Id);

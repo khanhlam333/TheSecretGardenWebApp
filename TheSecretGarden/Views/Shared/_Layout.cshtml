@@ -1,10 +1,5 @@
 ﻿@inject IHttpContextAccessor _contextAccessor;
 
-@{
-    var username = TempData["username"] as string;
-    var state = TempData["state"] as string;
-}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,23 +37,35 @@
                 </div>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <div class="registration-container">
-                        @if (Context.User.Identity.IsAuthenticated)
-                        {
+                    @if (Context.User.Identity.IsAuthenticated)
+                    {
+                        <div class="registration-container">
                             <p>Hi, @User.Identity.Name</p>
                             <a asp-action="Logout" asp-controller="Login" class="user-info-link login">Logout</a>
-                        } 
-                        else if (_contextAccessor.HttpContext.Session.GetString("ActiveState") == "active")
-                        {
+                        </div>
+                    }
+                    else if (_contextAccessor.HttpContext.Session.GetString("ActiveState") == "active" && _contextAccessor.HttpContext.Session.GetString("Role") != "Admin")
+                    {
+                        <div class="registration-container">
                             <p>Hi, @_contextAccessor.HttpContext.Session.GetString("Username")</p>
                             <a asp-action="LogoutAccount" asp-controller="Signup" class="user-info-link login">Logout</a>
-                        }
-                        else
-                        {
+                        </div>
+                    }
+                    else if (_contextAccessor.HttpContext.Session.GetString("ActiveState") == "active" && _contextAccessor.HttpContext.Session.GetString("Role") == "Admin")
+                    {
+                        <div class="registration-container" style="width: 100%;">
+                            <p>Hi, @_contextAccessor.HttpContext.Session.GetString("Username")</p>
+                            <a asp-action="Index" asp-controller="Admin" class="user-info-link login" style="margin: 0 1rem;">Admin Page</a>
+                            <a asp-action="LogoutAccount" asp-controller="Signup" class="user-info-link login">Logout</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="registration-container">
                             <a asp-action="LoginAccount" asp-controller="Login" class="user-info-link login">Login</a>
                             <a asp-action="CreateAccount" asp-controller="Signup" class="user-info-link signup">Sign Up</a>
-                        }
-                    </div>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>
@@ -72,7 +79,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-name-and-logo">
-                <a class="logo" href="index.html">
+                <a class="logo" asp-action="Index" asp-controller="Home">
                     <img src="~/photos/footer-logo.png" alt="footer-logo">
                 </a>
             </div>
@@ -95,16 +102,6 @@
                     <li>Clove Building, 4 Maguire Street, London SE1 2NQ</li>
                 </ul>
             </div>
-
-            <div id="website-related">
-                <p style="font-weight: bold;">WEBSITE RELATED</p>
-                <ul class="list-out">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Administrator</a></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div>
-
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

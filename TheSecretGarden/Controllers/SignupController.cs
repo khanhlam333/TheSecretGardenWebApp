@@ -91,6 +91,7 @@ namespace TheSecretGarden.Controllers
         public IActionResult LogoutAccount(Customer customer)
         {
             _contextAccessor.HttpContext.Session.SetString("ActiveState", "inactive");
+            _contextAccessor.HttpContext.Session.SetString("Role", "None");
 
             return RedirectToAction("Index", "Home");
         }
