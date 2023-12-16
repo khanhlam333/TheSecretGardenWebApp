@@ -19,7 +19,7 @@
         </div>
         @if (Context.User.Identity.IsAuthenticated || _contextAccessor.HttpContext.Session.GetString("ActiveState") == "active")
         {
-            <a asp-action="" asp-controller="" class="add-to-basket-btn">ADD TO BASKET</a>
+            <a asp-action="AddItemToShoppingCart" asp-controller="Order" class="add-to-basket-btn" asp-route-id="@Model.Id">ADD TO BASKET</a>
         }
         else
         {

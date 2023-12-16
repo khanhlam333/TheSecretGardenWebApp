@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using TheSecretGarden.Models;
 using TheSecretGarden.Services;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TheSecretGarden.Controllers
 {
@@ -39,6 +40,10 @@ namespace TheSecretGarden.Controllers
             customer.DateRegistered = DateTime.Now;
 
             await _service.AddAsync(customer);
+
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(1);
+            Response.Cookies.Append("Username", customer.Username, options);
 
             _contextAccessor.HttpContext.Session.SetInt32("Id", customer.Id);
             _contextAccessor.HttpContext.Session.SetString("Name", customer.Name);

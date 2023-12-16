@@ -27,7 +27,11 @@ builder.Services.AddScoped<IBookService, BookService>();
 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 
+builder.Services.AddScoped<IOrderService, OrderService>();
+
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

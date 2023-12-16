@@ -9,13 +9,10 @@ namespace TheSecretGarden.Models
     {
         [Key]
         public int Id { get; set; }
+        public string Email { get; set; }
         public int CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
         public List<OrderItem> OrderItems { get; set; }
-        public DateTime DatePlacedOrder { get; set; }
-        public string Address { get; set; }
-        public string Phone { get; set; }
-        public Status Status { get; set; }
     }
 }

@@ -308,3 +308,36 @@ a {
 #close-the-announcement:hover {
     color: black;
 }
+
+/*Cart related*/
+.cart-books-img {
+    width: 20%;
+    object-fit: cover;
+    aspect-ratio: 2/3;
+    margin: 0.7rem auto;
+}
+
+.cart-btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payment-btn-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.cash {
+    background-color: #F1F3F5;
+    color: black;
+    padding: 0.7rem;
+}
+
+.orderitems-books-img {
+    width: 30%;
+    object-fit: cover;
+    aspect-ratio: 2/3;
+    margin: 0.7rem auto;
+}

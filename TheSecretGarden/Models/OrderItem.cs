@@ -7,8 +7,8 @@ namespace TheSecretGarden.Models
     {
         [Key]
         public int Id { get; set; }
-        public int Quantity { get; set; }
-        public double TotalPrice { get; set; }
+        public int Amount { get; set; }
+        public double Price { get; set; }
         public int BookId { get; set; }
         [ForeignKey("BookId")]
         public virtual Book Book { get; set; }

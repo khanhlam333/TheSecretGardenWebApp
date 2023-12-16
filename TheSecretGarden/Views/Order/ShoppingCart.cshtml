@@ -1,0 +1,99 @@
+﻿@using TheSecretGarden.ViewModels;
+@model ShoppingCartVM
+
+@{
+    ViewData["Title"] = "Shopping Cart - The Secret Garden";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="text-center">
+            <h2>Your Shopping Basket</h2>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>Book Image</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                    <th>Selected Amount</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+                {
+                    <tr>
+                        <td class="text-center align-middle">
+                            <img src="@Url.Content(@item.Book.ImgLink)" alt="book image" class="cart-books-img" />
+                        </td>
+                        <td class="text-center align-middle">@item.Book.Title</td>
+                        <td class="text-center align-middle">$@item.Book.Price</td>
+                        <td class="text-center align-middle">@((item.Amount * item.Book.Price).ToString("c"))</td>
+                        <td class="text-center align-middle"><a asp-action="RemoveItemFromShoppingCart" asp-controller="Order" asp-route-id="@item.Book.Id">-</a></td>
+                        <td class="text-center align-middle">@item.Amount</td>
+                        <td class="text-center align-middle"><a asp-action="AddItemToShoppingCartStay" asp-controller="Order" asp-route-id="@item.Book.Id">+</a></td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td><b>Total:</b></td>
+                    <td>@Model.ShoppingCartTotal.ToString("c")</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-end">
+            <div class="cart-btn-container">
+                <a class="btn btn-outline-success" asp-action="Index" asp-controller="Home">Add More Books</a>
+                <div class="payment-btn-container">
+                    <a asp-action="CompleteOrder" asp-controller="Order" class="user-info-link cash">Pay with cash on delivery</a>
+                    <div id="paypal-btn"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://www.paypal.com/sdk/js?client-id=Af15_p01hCVYA1RqQHotxRxNA0kwAJBu76uezwpGVAdK-Xomk2fawW1dWgKXHEi0C8ZfFE1kVO6Z_7ZA&components=buttons"></script>
+    <script>
+        let _total = @Html.Raw(Model.ShoppingCartTotal);
+
+        paypal.Buttons({
+            //Create order
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            currency_code: "USD",
+                            value: _total
+                        }
+                    }]
+                });
+            },
+            
+            //Customize the button
+            style: {
+                layout: 'vertical',
+                color: 'blue',
+                shape: 'rect',
+                label: 'checkout'
+            },
+            //Execute the payment
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function () {
+                    var url = '@Url.Action("CompleteOrder", "Order", new { })';
+                    window.location.replace(url);
+                });
+            }
+        }).render("#paypal-btn");
+    </script>
+
+}

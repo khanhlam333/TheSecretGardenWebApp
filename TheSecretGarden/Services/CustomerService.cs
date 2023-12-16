@@ -36,6 +36,12 @@ namespace TheSecretGarden.Services
             return result;
         }
 
+        public async Task<Customer> GetByUsername(string username)
+        {
+            var result = await _context.Customers.FirstOrDefaultAsync(x => x.Username == username);
+            return result;
+        }
+
         public async Task<Customer> UpdateAsync(Customer customer)
         {
             _context.Update(customer);

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using TheSecretGarden.Models;
 using TheSecretGarden.Services;
+using System.Web;
 using Microsoft.AspNetCore.Components.Web;
 
 
@@ -33,7 +34,7 @@ namespace TheSecretGarden.Controllers
             {
                 _contextAccessor.HttpContext.Session.SetString("Role", "Admin");
 
-                _contextAccessor.HttpContext.Session.SetInt32("Id", data.Id);
+                _contextAccessor.HttpContext.Session.SetInt32("CustomerUniqueId", data.Id);
                 _contextAccessor.HttpContext.Session.SetString("Name", data.Name);
                 _contextAccessor.HttpContext.Session.SetString("Username", data.Username);
                 _contextAccessor.HttpContext.Session.SetString("Email", data.Email);
@@ -44,7 +45,11 @@ namespace TheSecretGarden.Controllers
                 return RedirectToAction("Index", "Admin");
             }
 
-            _contextAccessor.HttpContext.Session.SetInt32("Id", data.Id);
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(1);
+            Response.Cookies.Append("Username", data.Username, options);
+
+            _contextAccessor.HttpContext.Session.SetInt32("CustomerUniqueId", data.Id);
             _contextAccessor.HttpContext.Session.SetString("Name", data.Name);
             _contextAccessor.HttpContext.Session.SetString("Username", data.Username);
             _contextAccessor.HttpContext.Session.SetString("Email", data.Email);
