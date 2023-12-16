@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "_NotAllowed";
+    ViewData["Title"] = "Login or Sign Up - The Secret Garden";
+}
+
+<h1>You Must Login or Sign Up Before Adding Books to Basket</h1>
+<p>Please Login or Sign up in order to place your chosen books inside the basket.</p>
+<div class="admin-btn-container not-allowed">
+    <a asp-action="CreateAccount" asp-controller="Signup" class="user-info-link login">Sign Up</a>
+    <a asp-action="LoginAccount" asp-controller="Login" class="user-info-link login">Login</a>
+</div>

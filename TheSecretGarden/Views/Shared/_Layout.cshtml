@@ -41,6 +41,10 @@
                     {
                         <div class="registration-container">
                             <p>Hi, @User.Identity.Name</p>
+                            <a class="basket-icon-container" asp-action="" asp-controller="">
+                                <p class="basket-count"></p>
+                                <img src="~/photos/basket-icon.png" alt="basket icon" class="basket-icon" />
+                            </a>
                             <a asp-action="Logout" asp-controller="Login" class="user-info-link login">Logout</a>
                         </div>
                     }
@@ -48,6 +52,10 @@
                     {
                         <div class="registration-container">
                             <p>Hi, @_contextAccessor.HttpContext.Session.GetString("Username")</p>
+                            <a class="basket-icon-container" asp-action="" asp-controller="">
+                                <p class="basket-count"></p>
+                                <img src="~/photos/basket-icon.png" alt="basket icon" class="basket-icon" />
+                            </a>
                             <a asp-action="LogoutAccount" asp-controller="Signup" class="user-info-link login">Logout</a>
                         </div>
                     }

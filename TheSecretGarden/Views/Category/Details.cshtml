@@ -1,4 +1,5 @@
 ﻿@using TheSecretGarden.Models
+@inject IHttpContextAccessor _contextAccessor;
 @model Book
 
 @{
@@ -16,6 +17,13 @@
             <p>$@Model.Price</p>
 
         </div>
-        <button class="add-to-basket-btn">ADD TO BASKET</button>
+        @if (Context.User.Identity.IsAuthenticated || _contextAccessor.HttpContext.Session.GetString("ActiveState") == "active")
+        {
+            <a asp-action="" asp-controller="" class="add-to-basket-btn">ADD TO BASKET</a>
+        }
+        else
+        {
+            <a asp-action="MustLoginOrSignup" asp-controller="Home" class="add-to-basket-btn">ADD TO BASKET</a>
+        }
     </div>
 </div>

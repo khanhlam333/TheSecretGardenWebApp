@@ -49,6 +49,19 @@ a {
     padding: 0;
 }
 
+.basket-icon-container {
+    width: 6%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2rem;
+}
+.basket-icon {
+    width: 100%;
+    object-fit: contain;
+}
+
 /*page login navigation bar*/
 .registration-container {
     display: flex;
@@ -198,10 +211,12 @@ a {
     margin: 1.5rem 0;
     letter-spacing: 0.3rem;
     border: solid black;
+    text-align: center;
 }
 .add-to-basket-btn:hover {
     background-color: gray;
     border: solid gray;
+    color: white;
 }
 
 /*admin*/
