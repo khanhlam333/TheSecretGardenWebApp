@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TheSecretGarden.Models;
 using TheSecretGarden.Services;
 using TheSecretGarden.ViewModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TheSecretGarden.Controllers
 {
@@ -13,14 +14,15 @@ namespace TheSecretGarden.Controllers
         private readonly IOrderService _orderService;
         private readonly ICustomerService _customerService;
 
-        //private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public OrderController(IBookService bookService, ShoppingCart shoppingCart, IOrderService orderService, ICustomerService customerService)
+        public OrderController(IBookService bookService, ShoppingCart shoppingCart, IOrderService orderService, ICustomerService customerService, IHttpContextAccessor contextAccessor)
         {
             _bookService = bookService;
             _shoppingCart = shoppingCart;
             _orderService = orderService;
             _customerService = customerService;
+            _contextAccessor = contextAccessor;
         }
 
         public async Task<IActionResult> OrdersManage()
@@ -48,6 +50,7 @@ namespace TheSecretGarden.Controllers
         {
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItems = items;
+            _contextAccessor.HttpContext.Session.SetInt32("NumberInBasket", items.Count());
 
             var response = new ShoppingCartVM()
             {
@@ -62,7 +65,7 @@ namespace TheSecretGarden.Controllers
         {
             var item = await _bookService.GetByIdAsync(id);
 
-            if(item != null)
+            if (item != null)
             {
                 _shoppingCart.AddItemToCart(item);
             }
@@ -83,6 +86,7 @@ namespace TheSecretGarden.Controllers
         public async Task<IActionResult> RemoveItemFromShoppingCart (int id)
         {
             var item = await _bookService.GetByIdAsync (id);
+
             if(item != null)
             {
                 _shoppingCart.RemoveItemFromCart(item);
@@ -97,6 +101,8 @@ namespace TheSecretGarden.Controllers
 
         public async Task<IActionResult> CompleteOrder()
         {
+            _contextAccessor.HttpContext.Session.SetInt32("NumberInBasket", 0);
+
             var items = _shoppingCart.GetShoppingCartItems();
             var data = await _customerService.GetByUsername(Request.Cookies["Username"]);
             int customerId = data.Id;

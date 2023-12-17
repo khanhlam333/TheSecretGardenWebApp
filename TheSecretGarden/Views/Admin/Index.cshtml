@@ -1,9 +1,49 @@
 ﻿@inject IHttpContextAccessor _contextAccessor;
 
+@using TheSecretGarden.ViewModels
+@model TotalDashboardVM
+
 @if (_contextAccessor.HttpContext.Session.GetString("Role") == "Admin")
 {
     Layout = "_AdminLayout";
     ViewData["Title"] = "Dashboard - The Secret Garden";
+
+    <div>
+        <h1>Dashboard</h1>
+        <div class="summary-container">
+            <div class="total-container customers">
+                <img />
+                <div>
+                    <p>Total Customers</p>
+                    <p><b>@Model.totalCustomers</b></p>
+                </div>
+            </div>
+            
+            <div class="total-container sales">
+                <img />
+                <div>
+                    <p>Total Sales</p>
+                    <p><b>$@Model.totalSales</b></p>
+                </div>
+            </div>
+
+            <div class="total-container orders">
+                <img />
+                <div>
+                    <p>Total Orders</p>
+                    <p><b>@Model.totalOrders</b></p>
+                </div>
+            </div>
+
+            <div class="total-container books">
+                <img />
+                <div>
+                    <p>Total Books</p>
+                    <p><b>@Model.totalBooks</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 else if (_contextAccessor.HttpContext.Session.GetString("ActiveState") == "inactive" || !Context.User.Identity.IsAuthenticated)
 {

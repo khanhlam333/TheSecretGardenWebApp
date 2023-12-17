@@ -27,6 +27,10 @@ body {
 
 a {
     text-decoration: none;
+    color: black;
+}
+a:hover {
+    color: black;
 }
 
 .navbar-brand {
@@ -81,6 +85,7 @@ a {
     font-size: 1.2rem;
     width: 45%;
     text-align: center;
+    border-radius: 4px;
 }
 .login {
     background-color: #F1F3F5;
@@ -262,7 +267,8 @@ a {
 .admin-left-column {
     width: 15%;
     background-color: black;
-    min-height: 100%;
+    min-height: 100vh;
+    overflow: auto;
 }
 .admin-page-info {
     width: 85%;
@@ -278,6 +284,31 @@ a {
 .admin-links:hover {
     background-color: gray;
     color: white;
+}
+
+/*Admin Dashboard*/
+.summary-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 5%;
+}
+
+.total-container {
+    border: solid 1px black;
+    border-radius: 5px;
+    width: 40%;
+    margin-top: 5%;
+}
+.total-container img {
+    width: 50%;
+    object-fit: cover;
+}
+
+.total-container div {
+    width: 50%;
 }
 
 /*Admin Books Management*/
@@ -325,14 +356,13 @@ a {
 
 .payment-btn-container {
     display: flex;
-    justify-content: space-around;
     align-items: center;
-
 }
 .cash {
     background-color: #F1F3F5;
     color: black;
-    padding: 0.7rem;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
 }
 
 .orderitems-books-img {

@@ -5,16 +5,21 @@ using Microsoft.AspNetCore.Mvc;
 using TheSecretGarden.Models;
 using TheSecretGarden.Services;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.EntityFrameworkCore.Metadata;
+using TheSecretGarden.ViewModels;
 
 namespace TheSecretGarden.Controllers
 {
     public class SignupController : Controller
     {
         private readonly ICustomerService _service;
+        private readonly IOrderService _orderService;
+
         private readonly IHttpContextAccessor _contextAccessor;
-        public SignupController(ICustomerService service, IHttpContextAccessor contextAccessor)
+        public SignupController(ICustomerService service, IOrderService orderService ,IHttpContextAccessor contextAccessor)
         {
             _service = service;
+            _orderService = orderService;
             _contextAccessor = contextAccessor;
         }
 
@@ -81,8 +86,32 @@ namespace TheSecretGarden.Controllers
         //Get: Customer
         public async Task<IActionResult> CustomersManage()
         {
-            var data = await _service.GetCustomers();
-            return View(data);
+            var customerData = await _service.GetCustomers();
+            List<int> NumberOfOrders = new List<int>();
+            List<double> TotalSpend = new List<double>();
+            foreach (var customer in customerData)
+            {
+                var ordersData = await _orderService.GetOrdersByCustomerId(customer.Id);
+                var number = ordersData.Count();
+                NumberOfOrders.Add(number);
+                double total = 0;
+                foreach (var order in ordersData)
+                {
+                    var orderitemsData = await _orderService.GetOrderItemsByOrderId(order.Id);
+                    
+                    foreach(var orderitem in orderitemsData)
+                    {
+                        total += orderitem.Book.Price * orderitem.Amount;
+                    }
+                }
+                TotalSpend.Add(total);
+            }
+            CustomerOrdersOrderItemsVM vm = new CustomerOrdersOrderItemsVM();
+            vm.Customers = customerData;
+            vm.NumberOfOrders = NumberOfOrders;
+            vm.TotalSpend = TotalSpend;
+
+            return View(vm);
         }
 
         //Get: Customes/Details/1

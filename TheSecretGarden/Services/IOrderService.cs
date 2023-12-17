@@ -7,6 +7,7 @@ namespace TheSecretGarden.Services
         Task<IEnumerable<Order>> GetOrders();
         Task StoreOrderAsync(List<ShoppingCartItem> items, int customerId, string customerEmail);
         Task<List<Order>> GetOrdersByCustomerId(int customerId);
+        Task<IEnumerable<OrderItem>> GetOrderItems();
         Task<IEnumerable<OrderItem>> GetOrderItemsByOrderId(int orderId);
     }
 }

@@ -53,7 +53,7 @@
                         <div class="registration-container">
                             <p>Hi, @_contextAccessor.HttpContext.Session.GetString("Username")</p>
                             <a class="basket-icon-container" asp-action="ShoppingCart" asp-controller="Order">
-                                <p class="basket-count"></p>
+                                <p class="basket-count">@_contextAccessor.HttpContext.Session.GetInt32("NumberInBasket")</p>
                                 <img src="~/photos/basket-icon.png" alt="basket icon" class="basket-icon" />
                             </a>
                             <a asp-action="LogoutAccount" asp-controller="Signup" class="user-info-link login">Logout</a>

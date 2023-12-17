@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheSecretGarden.Enum;
 using TheSecretGarden.Models;
+using TheSecretGarden.ViewModels;
 using TheSecretGarden.Services;
 
 namespace TheSecretGarden.Controllers
@@ -8,13 +9,56 @@ namespace TheSecretGarden.Controllers
     public class AdminController : Controller
     {
         private readonly IBookService _service;
-        public AdminController(IBookService service)
+        private readonly IOrderService _orderService;
+        private readonly ICustomerService _customerService;
+        public AdminController(IBookService service, IOrderService orderService, ICustomerService customerService)
         {
             _service = service;
+            _orderService = orderService;
+            _customerService = customerService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var customers = await _customerService.GetCustomers();
+            int totalCustomers = 0;
+
+            var orders = await _orderService.GetOrders();
+            int totalOrders = 0;
+
+            var orderitems = await _orderService.GetOrderItems();
+            double totalSales = 0;
+
+            var books = await _service.GetBooks();
+            int totalBooks = 0;
+
+            foreach (var customer in customers)
+            {
+                totalCustomers += 1;
+            }
+
+            foreach (var order in orders)
+            {
+                totalOrders += 1;
+            }
+
+            foreach(var item in orderitems)
+            {
+                totalSales += item.Amount * item.Book.Price;
+            }
+
+            foreach(var book in books)
+            {
+                totalBooks += 1;
+            }
+
+            
+            TotalDashboardVM vm = new TotalDashboardVM();
+            vm.totalCustomers = totalCustomers;
+            vm.totalSales = totalSales;
+            vm.totalBooks = totalBooks;
+            vm.totalOrders = totalOrders;
+
+            return View(vm);
         }
 
         public async Task<IActionResult> BooksManage()

@@ -25,6 +25,12 @@ namespace TheSecretGarden.Services
             return orders;
         }
 
+        public async Task<IEnumerable<OrderItem>> GetOrderItems()
+        {
+            var result = await _context.OrderItems.ToListAsync();
+            return result;
+        }
+
         public async Task<IEnumerable<OrderItem>> GetOrderItemsByOrderId(int orderId)
         {
             var orderitems = await _context.OrderItems.Include(n => n.Book).Include(n => n.Order).ToListAsync();
