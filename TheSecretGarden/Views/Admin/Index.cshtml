@@ -12,34 +12,34 @@
         <h1>Dashboard</h1>
         <div class="summary-container">
             <div class="total-container customers">
-                <img />
+                <img src="~/photos/dashboard/total-customers.png" alt="total customers image" />
                 <div>
-                    <p>Total Customers</p>
-                    <p><b>@Model.totalCustomers</b></p>
-                </div>
-            </div>
-            
-            <div class="total-container sales">
-                <img />
-                <div>
-                    <p>Total Sales</p>
-                    <p><b>$@Model.totalSales</b></p>
-                </div>
-            </div>
-
-            <div class="total-container orders">
-                <img />
-                <div>
-                    <p>Total Orders</p>
-                    <p><b>@Model.totalOrders</b></p>
+                    <h3>Total Customers</h3>
+                    <h3><b>@Model.totalCustomers</b></h3>
                 </div>
             </div>
 
             <div class="total-container books">
-                <img />
+                <img src="~/photos/dashboard/total-books.png" alt="total books image" />
                 <div>
-                    <p>Total Books</p>
-                    <p><b>@Model.totalBooks</b></p>
+                    <h3>Total Books</h3>
+                    <h3><b>@Model.totalBooks</b></h3>
+                </div>
+            </div>
+            
+            <div class="total-container orders">
+                <img src="~/photos/dashboard/total-orders.png" alt="total orders image" />
+                <div>
+                    <h3>Total Orders</h3>
+                    <h3><b>@Model.totalOrders</b></h3>
+                </div>
+            </div>
+
+            <div class="total-container sales">
+                <img src="~/photos/dashboard/total-sales.png" alt="total sales image" />
+                <div>
+                    <h3>Total Sales</h3>
+                    <h3><b>$@Model.totalSales</b></h3>
                 </div>
             </div>
         </div>
