@@ -11,14 +11,20 @@ namespace TheSecretGarden.Models
 
         [Display(Name = "Book Image")]
         public string ImgLink { get; set; }
-        
+
+        [Required(ErrorMessage = "Title of book is required")]
         public string Title { get; set; }
-        
+
+        [Required(ErrorMessage = "Author of book is required")]
         public string Author { get; set; }
-        
+
+        [Required(ErrorMessage = "Price of book is required")]
         public double Price { get; set; }
-        
+
+        [Required(ErrorMessage = "Description of book is required")]
         public string Description { get; set; }
+
+        [Required(ErrorMessage = "Category of book is required")]
         [Display(Name = "Category")]
         public BookCategory BookCategory { get; set; }
     }

@@ -113,10 +113,6 @@ a:hover {
     text-align: center;
     vertical-align: middle;
 }
-.google-link:hover {
-    color: white;
-    background-color: gray;
-}
 
 .google-link-img {
     width: 10%;

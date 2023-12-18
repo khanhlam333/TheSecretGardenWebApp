@@ -15,9 +15,9 @@
         <table class="table">
             <thead>
                 <tr class="text-center">
-                    <th>@Html.DisplayNameFor(model => model.Id)</th>
-                    <th>@Html.DisplayNameFor(model => model.Customer.Username)</th>
-                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    <th>Order Id</th>
+                    <th>Customer Id</th>
+                    <th>Customer Email</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -25,10 +25,10 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td class="text-center align-middle">@Html.DisplayFor(modelItem => item.Id)</td>
-                        <td class="text-center align-middle">@Html.DisplayFor(modelItem => item.Customer.Username)</td>
-                        <td class="text-center align-middle">@Html.DisplayFor(modelItem => item.Email)</td>
-                        <td><a asp-action="Details" asp-route-id="@item.Id" asp-controller="Order" class="btn btn-outline-primary">Details</a></td>
+                        <td class="text-center align-middle">@item.Id</td>
+                        <td class="text-center align-middle">@item.CustomerId</td>
+                        <td class="text-center align-middle">@item.Email</td>
+                        <td><a asp-action="Details" asp-route-id="@item.Id" asp-controller="Order" class="btn btn-outline-primary text-center align-middle">Details</a></td>
                     </tr>
                 }
             </tbody>
