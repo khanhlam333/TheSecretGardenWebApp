@@ -6,6 +6,7 @@ using TheSecretGarden.Models;
 using TheSecretGarden.Services;
 using System.Web;
 using Microsoft.AspNetCore.Components.Web;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace TheSecretGarden.Controllers
@@ -78,7 +79,13 @@ namespace TheSecretGarden.Controllers
                 claim.Type,
                 claim.Value
             });
-            var array = Json(claims);
+            var array = claims.ToList();
+            string username = array[1].Value;
+
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(1);
+            Response.Cookies.Append("Username", username, options);
+
             return RedirectToAction("Index", "Home");
         }
 

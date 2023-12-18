@@ -18,6 +18,20 @@ namespace TheSecretGarden.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task StoreGoogleData(string name, string username, string email, string password, DateTime dateregistered)
+        {
+            var customer = new Customer()
+            {
+                Name = name,
+                Username = username,
+                Email = email,
+                Password = password,
+                DateRegistered = dateregistered
+            };
+            await _context.Customers.AddAsync(customer);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Customer> GetByIdAsync(int id)
         {
             var result = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
