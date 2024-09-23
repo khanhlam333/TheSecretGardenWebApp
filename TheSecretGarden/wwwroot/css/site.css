@@ -22,7 +22,11 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
 }
 
 .navbar-brand {
@@ -46,11 +50,6 @@ body {
 }
 
 /*page footer*/
-footer {
-    position: fixed;
-    width: 100vw;
-    bottom: 0;
-}
 .footer-content {
     padding: 2rem 0;
     display: flex;
@@ -69,5 +68,44 @@ footer {
 
 .list-out li a {
     color: white;
-    text-decoration: none;
+}
+
+/*book display on our collection*/
+.books-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 3rem 4rem;
+    width: 100vw;
+}
+
+.book-display {
+    flex-basis: 25%;
+    margin-bottom: 5rem;
+    text-align: center;
+    color: black;
+}
+.book-display:hover {
+    color: black;
+    transform: scale(1.2, 1.2);
+}
+
+.book-display > p:nth-child(2) {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.book-display > p:nth-child(3) {
+    font-style: italic;
+}
+
+.book-display > p:nth-child(4) {
+    font-weight: bold;
+}
+
+.book-img {
+    width: 50%;
+    object-fit: cover;
+    aspect-ratio: 2/3;
+    margin: 1rem auto;
 }

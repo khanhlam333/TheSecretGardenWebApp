@@ -1,7 +1,21 @@
-﻿@{
+﻿@using TheSecretGarden.Models
+@model IEnumerable<Book>
+
+@{
     ViewData["Title"] = "Fiction";
 }
 
 <div>
-    <img class="banner-image" src="~/photos/fiction-banner.png"/>
+    <img class="banner-image" src="~/photos/fiction-banner.png" />
+    <div class="books-container">
+        @foreach (var item in Model)
+        {
+            <a class="book-display" asp-area="" asp-controller="Category" asp-action="Details">
+                <img src="@Url.Content(@item.ImgLink)" alt="book image" class="book-img" />
+                <p>@item.Title</p>
+                <p>@item.Author</p>
+                <p>$@item.Price</p>
+            </a>
+        }
+    </div>
 </div>

@@ -1,9 +1,23 @@
+using Microsoft.EntityFrameworkCore;
+using TheSecretGarden.Models;
+using TheSecretGarden.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<BookStoreDbContext>(con => con.UseSqlServer(builder.Configuration.GetConnectionString("connectionstr")));
+
+builder.Services.AddScoped<IBookService, BookService>();
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedBookData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
