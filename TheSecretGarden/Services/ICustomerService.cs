@@ -10,6 +10,7 @@ namespace TheSecretGarden.Services
         Task<Customer> GetByUsernameAndPasswordAsync(Customer customer);
         Task<Customer> GetByUsername(string username);
         Task AddAsync(Customer customer);
+        Task StoreGoogleData(string name, string username, string email, string password, DateTime dateregistered);
         Task<Customer> UpdateAsync(Customer customer);
     }
 }

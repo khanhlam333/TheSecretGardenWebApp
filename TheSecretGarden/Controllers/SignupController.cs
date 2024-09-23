@@ -79,7 +79,15 @@ namespace TheSecretGarden.Controllers
                 claim.Type,
                 claim.Value
             });
-            var array = Json(claims);
+            var array = claims.ToList();
+            string name = array[2].Value;
+            string username = array[1].Value;
+            string email = array[4].Value;
+            string password = "none";
+            DateTime dateregistered = DateTime.Now;
+
+            await _service.StoreGoogleData(name, username, email, password, dateregistered);
+
             return RedirectToAction("Index", "Home");
         }
 
