@@ -28,3 +28,6 @@ The admin can only enter the admin page if they enter the correct log in informa
 + Customers can add books to their cart after they have signed in to their account
 + Customers can place an order to purchase a book
 + Customers can purchase their orders through PayPal online payment gateway
+
+## Images
+![Screenshot of the main page of the web application](/Web Applicaton Images/web-application-main-page.png)
