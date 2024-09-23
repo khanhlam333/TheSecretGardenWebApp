@@ -30,4 +30,4 @@ The admin can only enter the admin page if they enter the correct log in informa
 + Customers can purchase their orders through PayPal online payment gateway
 
 ## Images
-![Screenshot of the main page of the web application](Web Application Images/web-application-main-page.png)
+![Screenshot of the main page of the web application](images/web-application-main-page.png)
