@@ -1,0 +1,42 @@
+﻿@using TheSecretGarden.Models
+@model IEnumerable<OrderItem>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Order Items - The Secret Garden";
+    var message = TempData["message"] as string;
+    var style = TempData["style"] as string;
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>Book Image</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center align-middle">
+                            <img src="@Url.Content(@item.Book.ImgLink)" alt="book image" class="orderitems-books-img" />
+                        </td>
+                        <td class="text-center align-middle">@Html.DisplayFor(modelItem => item.Book.Title)</td>
+                        <td class="text-center align-middle">@Html.DisplayFor(modelItem => item.Book.Author)</td>
+                        <td class="text-center align-middle">@Html.DisplayFor(modelItem => item.Book.BookCategory)</td>
+                        <td class="text-center align-middle">@Html.DisplayFor(modelItem => item.Amount)</td>
+                        <td class="text-center align-middle">$@(@item.Amount * @item.Book.Price)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a class="btn btn-outline-success text-end" asp-action="OrdersManage" asp-controller="Order">Back to Orders</a>
+    </div>
+</div>

@@ -1,6 +1,46 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿<!--<script src="https://www.paypal.com/sdk/js?client-id=Af15_p01hCVYA1RqQHotxRxNA0kwAJBu76uezwpGVAdK-Xomk2fawW1dWgKXHEi0C8ZfFE1kVO6Z_7ZA&components=buttons"></script>
+<script>
+    let _total = @Html.Raw(Model.ShoppingCartTotal);
 
-<p>Use this page to detail your site's privacy policy.</p>
+    paypal.Buttons({
+        //Customize the button
+        style: {
+            layout: 'vertical',
+            color: 'blue',
+            shape: 'rect',
+            label: 'checkout'
+        }
+
+                //Set up a payment
+                payment: function (data, actions) {
+            return actions.payment.create({
+                transaction: [{
+                    amount: {
+                        total: _total,
+                        currency: 'USD'
+                    }
+                }]
+            });
+        },
+        //Execute the payment
+        onAuthorize: function (data, actions) {
+            return actions.payment.execute().then(function () {
+                var url = '@Url.Action("CompleteOrder", "Order", new { })';
+                window.location.href = url;
+            });
+        }
+    }).render("#paypal-btn");
+</script>
+
+<script>
+    function loadAsync(url, callback) {
+        var s = document.createElement('script');
+        s.setAttribute('src', url);
+        s.onload = callback;
+        document.head.insertBefore(s, document.head.firstElementChild);
+    }
+
+    loadAsync('https://www.paypal.com/sdk/js?client-id=Af15_p01hCVYA1RqQHotxRxNA0kwAJBu76uezwpGVAdK-Xomk2fawW1dWgKXHEi0C8ZfFE1kVO6Z_7ZA$comp')
+</script>
+
+-->

@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Testing";
+}
+
+@if (Context.User.Identity.IsAuthenticated) {
+    <h3>Welcome @User.Identity.Name</h3>
+    <a asp-action="Logout" asp-controller="Login">Logout</a>
+}
+else {
+    <h2>Hello there</h2>
+}

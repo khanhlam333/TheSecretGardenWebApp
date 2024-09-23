@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor _contextAccessor;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +9,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TheSecretGarden.styles.css" asp-append-version="true" />
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
     <header>
@@ -32,6 +35,46 @@
                         </li>
                     </ul>
                 </div>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    @if (Context.User.Identity.IsAuthenticated)
+                    {
+                        <div class="registration-container">
+                            <p>Hi, @User.Identity.Name</p>
+                            <a class="basket-icon-container" asp-action="ShoppingCart" asp-controller="Order">
+                                <p class="basket-count"></p>
+                                <img src="~/photos/basket-icon.png" alt="basket icon" class="basket-icon" />
+                            </a>
+                            <a asp-action="Logout" asp-controller="Login" class="user-info-link login">Logout</a>
+                        </div>
+                    }
+                    else if (_contextAccessor.HttpContext.Session.GetString("ActiveState") == "active" && _contextAccessor.HttpContext.Session.GetString("Role") != "Admin")
+                    {
+                        <div class="registration-container">
+                            <p>Hi, @_contextAccessor.HttpContext.Session.GetString("Username")</p>
+                            <a class="basket-icon-container" asp-action="ShoppingCart" asp-controller="Order">
+                                <p class="basket-count">@_contextAccessor.HttpContext.Session.GetInt32("NumberInBasket")</p>
+                                <img src="~/photos/basket-icon.png" alt="basket icon" class="basket-icon" />
+                            </a>
+                            <a asp-action="LogoutAccount" asp-controller="Signup" class="user-info-link login">Logout</a>
+                        </div>
+                    }
+                    else if (_contextAccessor.HttpContext.Session.GetString("ActiveState") == "active" && _contextAccessor.HttpContext.Session.GetString("Role") == "Admin")
+                    {
+                        <div class="registration-container" style="width: 100%;">
+                            <p>Hi, @_contextAccessor.HttpContext.Session.GetString("Username")</p>
+                            <a asp-action="Index" asp-controller="Admin" class="user-info-link login" style="margin: 0 1rem;">Admin Page</a>
+                            <a asp-action="LogoutAccount" asp-controller="Signup" class="user-info-link login">Logout</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="registration-container">
+                            <a asp-action="LoginAccount" asp-controller="Login" class="user-info-link login">Login</a>
+                            <a asp-action="CreateAccount" asp-controller="Signup" class="user-info-link signup">Sign Up</a>
+                        </div>
+                    }
+                </div>
             </div>
         </nav>
     </header>
@@ -44,7 +87,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-name-and-logo">
-                <a class="logo" href="index.html">
+                <a class="logo" asp-action="Index" asp-controller="Home">
                     <img src="~/photos/footer-logo.png" alt="footer-logo">
                 </a>
             </div>
@@ -67,16 +110,6 @@
                     <li>Clove Building, 4 Maguire Street, London SE1 2NQ</li>
                 </ul>
             </div>
-
-            <div id="website-related">
-                <p style="font-weight: bold;">WEBSITE RELATED</p>
-                <ul class="list-out">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Administrator</a></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div>
-
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

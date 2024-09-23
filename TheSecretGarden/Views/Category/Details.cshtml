@@ -1,0 +1,29 @@
+﻿@using TheSecretGarden.Models
+@inject IHttpContextAccessor _contextAccessor;
+@model Book
+
+@{
+    ViewData["Title"] = "Details of the book";
+}
+
+<img src="~/photos/details-banner.png" class="banner-image" alt="detail banner image"/>
+<div class="details-container">
+    <img src="@Url.Content(@Model.ImgLink)" alt="book image" class="details-book-img" />
+    <div class="description-container">
+        <h2>@Model.Title</h2>
+        <p>@Model.Author</p>
+        <p>@Model.Description</p>
+        <div class="price-quantity-container">
+            <p>$@Model.Price</p>
+
+        </div>
+        @if (Context.User.Identity.IsAuthenticated || _contextAccessor.HttpContext.Session.GetString("ActiveState") == "active")
+        {
+            <a asp-action="AddItemToShoppingCart" asp-controller="Order" class="add-to-basket-btn" asp-route-id="@Model.Id">ADD TO BASKET</a>
+        }
+        else
+        {
+            <a asp-action="MustLoginOrSignup" asp-controller="Home" class="add-to-basket-btn">ADD TO BASKET</a>
+        }
+    </div>
+</div>

@@ -8,11 +8,18 @@ namespace TheSecretGarden.Models
     {
         [Key]
         public int Id { get; set; }
-        public string? ImgLink { get; set; }
-        public string? Title { get; set; }
-        public string? Author { get; set; }
+
+        [Display(Name = "Book Image")]
+        public string ImgLink { get; set; }
+        
+        public string Title { get; set; }
+        
+        public string Author { get; set; }
+        
         public double Price { get; set; }
-        public string? Description { get; set; }
+        
+        public string Description { get; set; }
+        [Display(Name = "Category")]
         public BookCategory BookCategory { get; set; }
     }
 }

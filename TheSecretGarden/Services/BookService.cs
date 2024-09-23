@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TheSecretGarden.Enum;
 using TheSecretGarden.Models;
 
@@ -11,19 +12,22 @@ namespace TheSecretGarden.Services
         {
             _context = context;
         }
-        public Task AddAsync(Book book)
+        public async Task AddAsync(Book book)
         {
-            throw new NotImplementedException();
+            await _context.Books.AddAsync(book);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.Books.FirstOrDefaultAsync(n => n.Id == id);
+            _context.Books.Remove(result);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Book>> GetBooks()
         {
-            var result = await _context.Books.ToListAsync();
+            var result = await _context.Books.OrderByDescending(p => p.Id).ToListAsync();
             return result;
         }
 
@@ -35,13 +39,15 @@ namespace TheSecretGarden.Services
 
         public async Task<IEnumerable<Book>> GetByCategoryAsync(BookCategory BookCategory)
         {
-            var result = await _context.Books.Where(x => x.BookCategory == BookCategory).ToListAsync();
+            var result = await _context.Books.Where(x => x.BookCategory == BookCategory).OrderByDescending(p => p.Id).ToListAsync();
             return result;
         }
 
-        public Task UpdateAsync(int id, Book book)
+        public async Task<Book> UpdateAsync(int id, Book book)
         {
-            throw new NotImplementedException();
+            _context.Update(book);
+            await _context.SaveChangesAsync();
+            return book;
         }
     }
 }

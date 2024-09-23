@@ -1,0 +1,21 @@
+﻿@using TheSecretGarden.Enum
+@model Book
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Admin Book Details - The Secret Garden";
+}
+
+<div class="details-container" style="width: 100%;">
+    <img src="@Url.Content(@Model.ImgLink)" alt="book image" class="details-book-img" />
+    <div class="description-container">
+        <h2>@Model.Title</h2>
+        <p>@Model.Author</p>
+        <p>@Model.Description</p>
+        <p>$@Model.Price</p>
+        <div style="display: flex; justify-content: space-between;">
+            <a asp-action="BooksManage" asp-controller="Admin" class="btn btn-outline-secondary">Show All</a>
+            <a asp-action="Edit" asp-controller="Admin" class="btn btn-outline-success" asp-route-id="@Model.Id">Edit</a>
+        </div>
+    </div>
+</div>

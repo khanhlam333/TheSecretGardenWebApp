@@ -1,0 +1,42 @@
+﻿@inject IHttpContextAccessor _contextAccessor;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - The Secret Garden Admin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TheSecretGarden.styles.css" asp-append-version="true" />
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+    <div class="admin-info">
+        <img src="~/photos/admin-logo.png" alt="admin logo" class="admin-logo" />
+        <div class="admin-registration-container">
+            <p>Hi, @_contextAccessor.HttpContext.Session.GetString("Username")</p>
+            <div class="admin-btn-container allowed">
+                <a asp-action="Index" asp-controller="Home" class="user-info-link login">View Home Page</a>
+                <a asp-action="LogoutAccount" asp-controller="Signup" class="user-info-link login">Logout</a>
+            </div>
+        </div>
+    </div>
+    <div class="admin-container">
+        <div class="admin-left-column">
+            <a asp-action="Index" asp-controller="Admin" class="admin-links">Dashboard</a>
+            <a asp-action="BooksManage" asp-controller="Admin" class="admin-links">Books</a>
+            <a asp-action="OrdersManage" asp-controller="Order" class="admin-links">Orders</a>
+            <a asp-action="CustomersManage" asp-controller="Signup" class="admin-links">Customers</a>
+        </div>
+        <main role="main" class="admin-page-info">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

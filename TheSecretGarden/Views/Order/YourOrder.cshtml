@@ -1,0 +1,48 @@
+﻿@model List<Order>
+
+@{
+    ViewData["Title"] = "Shopping Cart - The Secret Garden";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="text-center">
+            <h2>List of Your Orders</h2>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>Order ID</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center align-middle">@item.Id</td>
+                        <td class="text-center align-middle">
+                            <ul style="list-style-type: none">
+                                @foreach (var subitem in item.OrderItems)
+                                {
+                                    <li>
+                                        <div class="alert alert-info" role="alert">
+                                            <span class="badge bg-success">@subitem.Amount</span> [@subitem.Price.ToString("c")] - @subitem.Book.Title
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </td>
+                        <td class="text-center align-middle">@item.OrderItems.Select(m => m.Book.Price * m.Amount).Sum().ToString("c")</td>
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <a class="btn btn-outline-success text-end" asp-action="Index" asp-controller="Home">Add More Books</a>
+          
+    </div>
+</div>

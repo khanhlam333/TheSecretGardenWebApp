@@ -1,0 +1,42 @@
+﻿@using TheSecretGarden.ViewModels
+@model CustomerOrdersOrderItemsVM
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Customers Management - The Secret Garden";
+    var message = TempData["message"] as string;
+    var style = TempData["style"] as string;
+}
+
+<h1>Customers Management</h1>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Date Registered</th>
+                    <th>Email</th>
+                    <th>Number of Orders</th>
+                    <th>Total Spend</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Customers.Count(); i ++)
+                {
+                    <tr>
+                        <td class="text-center align-middle">@Model.Customers.ElementAt(i).Name</td>
+                        <td class="text-center align-middle">@Model.Customers.ElementAt(i).Username</td>
+                        <td class="text-center align-middle">@Model.Customers.ElementAt(i).DateRegistered</td>
+                        <td class="text-center align-middle">@Model.Customers.ElementAt(i).Email</td>
+                        <td class="text-center align-middle">@Model.NumberOfOrders[i]</td>
+                        <td class="text-center align-middle">$@Model.TotalSpend[i]</td>
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

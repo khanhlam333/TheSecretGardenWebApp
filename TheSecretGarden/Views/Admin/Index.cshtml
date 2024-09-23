@@ -1,0 +1,80 @@
+﻿@inject IHttpContextAccessor _contextAccessor;
+
+@using TheSecretGarden.ViewModels
+@model TotalDashboardVM
+
+@if (_contextAccessor.HttpContext.Session.GetString("Role") == "Admin")
+{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Dashboard - The Secret Garden";
+
+    <div>
+        <h1>Dashboard</h1>
+        <div class="summary-container">
+            <div class="total-container customers">
+                <img />
+                <div>
+                    <p>Total Customers</p>
+                    <p><b>@Model.totalCustomers</b></p>
+                </div>
+            </div>
+            
+            <div class="total-container sales">
+                <img />
+                <div>
+                    <p>Total Sales</p>
+                    <p><b>$@Model.totalSales</b></p>
+                </div>
+            </div>
+
+            <div class="total-container orders">
+                <img />
+                <div>
+                    <p>Total Orders</p>
+                    <p><b>@Model.totalOrders</b></p>
+                </div>
+            </div>
+
+            <div class="total-container books">
+                <img />
+                <div>
+                    <p>Total Books</p>
+                    <p><b>@Model.totalBooks</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (_contextAccessor.HttpContext.Session.GetString("ActiveState") == "inactive" || !Context.User.Identity.IsAuthenticated)
+{
+    Layout = "_NotAllowed";
+    ViewData["Title"] = "Admin Page - The Secret Garden";
+
+    <h1>Admin Page. Guests Not Allowed!</h1>
+    <p>This is the admin page and guests are not allowed to visit without authorization.</p>
+    <p>If you are an admin then please login</p>
+    <div class="admin-btn-container not-allowed">
+        <a asp-action="Index" asp-controller="Home" class="user-info-link login">Home Page</a>
+        <a asp-action="LoginAccount" asp-controller="Login" class="user-info-link login">Login</a>
+    </div>
+}
+else if (_contextAccessor.HttpContext.Session.GetString("ActiveState") == "active" && _contextAccessor.HttpContext.Session.GetString("Role") != "Admin" || Context.User.Identity.IsAuthenticated)
+{
+    Layout = "_NotAllowed";
+    ViewData["Title"] = "Admin Page - The Secret Garden";
+    
+    <h1>Admin Page. Guests Not Allowed!</h1>
+    <p>This is the admin page and guests are not allowed to visit without authorization.</p>
+    <p>If you are an admin then please login</p>
+    <div class="admin-btn-container not-allowed">
+        <a asp-action="Index" asp-controller="Home" class="user-info-link login">Home Page</a>
+        @if (Context.User.Identity.IsAuthenticated)
+        {
+            <a asp-action="Logout" asp-controller="Login" class="user-info-link login">Logout</a>
+        }
+        else
+        {
+            <a asp-action="LogoutAccount" asp-controller="Signup" class="user-info-link login">Logout</a>
+        }
+    </div>
+}
