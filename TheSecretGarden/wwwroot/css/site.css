@@ -109,10 +109,15 @@ a:hover {
     padding: 0.7rem;
     border-radius: 4px;
     color: black;
+    width: 35%;
+    text-align: center;
+    vertical-align: middle;
 }
-.google-link:hover {
-    color: white;
-    background-color: gray;
+
+.google-link-img {
+    width: 10%;
+    object-fit: contain;
+    vertical-align: middle;
 }
 
 /*page footer*/
@@ -297,14 +302,19 @@ a:hover {
 }
 
 .total-container {
+    display: flex;
     border: solid 1px black;
     border-radius: 5px;
     width: 40%;
     margin-top: 5%;
+    gap: 5%;
+    padding: 2rem 1rem;
+    justify-content: space-around;
+    align-items: center;
 }
 .total-container img {
-    width: 50%;
-    object-fit: cover;
+    width: 15%;
+    object-fit: contain;
 }
 
 .total-container div {
