@@ -31,28 +31,28 @@ The admin can only enter the admin page if they enter the correct log in informa
 
 ## Images
 ![Screenshot of the main page of the web application](images/web-application-main-page.png)
-*The main page of the web application* <br/>
+*The main page of the web application* <br/><br/>
 
 ![Screenshot of the specific product page of the web application](images/specific-product-page.png)
-*The detailed product page with the product's information* <br/>
+*The detailed product page with the product's information* <br/><br/>
 
 ![Screenshot of the log in page of the web application](images/log-in-page.png)
-*The log in page for users to log in to their account* <br/>
+*The log in page for users to log in to their account* <br/><br/>
 
 ![Screenshot of the customer's shopping basket page of the web application](images/shopping-basket-page.png)
-*The shopping basket page for customer to view their chosen books* <br/>
+*The shopping basket page for customer to view their chosen books* <br/><br/>
 
 ![Screenshot of the admin dashboard page of the web application](images/admin-dashboard-page.png)
-*The Admin dashboard page that summarize the current number of books, customers, orders and revenue* <br/>
+*The Admin dashboard page that summarize the current number of books, customers, orders and revenue* <br/><br/>
 
 ![Screenshot of the admin books management page of the web application](images/admin-books-management-page.png)
-*The Admin books management page where Admin can create, update or delete books* <br/>
+*The Admin books management page where Admin can create, update or delete books* <br/><br/>
 
 ![Screenshot of the admin orders management page of the web application](images/admin-orders-management-page.png)
-*The Admin orders management page where Admin can view orders* <br/>
+*The Admin orders management page where Admin can view orders* <br/><br/>
 
 ![Screenshot of the admin detailed oder page of the web application](images/admin-orders-details-page.png)
-*The Admin detailed order page where Admin can view the details relevant to the order* <br/>
+*The Admin detailed order page where Admin can view the details relevant to the order* <br/><br/>
 
 ![Screenshot of the customers management page of the web application](images/admin-customers-management-page.png)
-*The Admin customers management page where Admin can view the customers' information* <br/>
+*The Admin customers management page where Admin can view the customers' information* <br/><br/>
